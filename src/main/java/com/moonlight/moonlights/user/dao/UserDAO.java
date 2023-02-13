@@ -3,6 +3,8 @@ package com.moonlight.moonlights.user.dao;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.moonlight.moonlights.user.model.User;
+
 @Repository
 public interface UserDAO {
 	
@@ -13,7 +15,7 @@ public interface UserDAO {
 			, @Param("email") String email);
 	
 	// loginId 가 일치하는 행이 몇개인지 확인 
-	
 	public int selectCountByLoginId(@Param("loginId") String loginId);
 
+	public User selectUserByIdPassword(@Param("loginId") String loginId, @Param("password") String password);
 }

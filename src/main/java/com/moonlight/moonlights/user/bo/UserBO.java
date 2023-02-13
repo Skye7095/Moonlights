@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.moonlight.moonlights.common.EncryptUtils;
 import com.moonlight.moonlights.user.dao.UserDAO;
+import com.moonlight.moonlights.user.model.User;
 
 @Service
 public class UserBO {
@@ -34,5 +35,12 @@ public class UserBO {
 		
 		return count != 0;
 		
+	}
+	
+	public User getUser(String loginId, String password) {
+		
+		String encryptPassword = EncryptUtils.md5(password);
+		
+		return userDAO.selectUserByIdPassword(loginId, encryptPassword);
 	}
 }

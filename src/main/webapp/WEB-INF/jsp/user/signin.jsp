@@ -12,7 +12,6 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-<link rel="stylesheet" href="/static/css/style.css" type="text/css">
 </head>
 <body>
 	<div class="container">
@@ -48,7 +47,45 @@
 	<script>
 		$(document).ready(function() {
 			
-			
+			$("#loginForm").on("submit", function(e){
+			// $("#loginBtn").on("click", function(){
+				
+				// 해당 이벤트의 기능을 모두 취소한다
+				// 위에$("#loginForm").on("submit", function(e)중
+				//		function()안에 만약 이벤트의 기능을 조작하려면 e를 입력. 아니면 비워줌
+				e.preventDefault();
+				
+				let loginId = $("#loginIdInput").val();
+				let password = $("#passwordInput").val();
+				
+				if(loginId == ""){
+					alert("아이디를 입력하세요");
+					return;
+				}
+				
+				if(password == ""){
+					alert("비밀번호를 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/user/signin"
+					, data:{"loginId":loginId, "password":password}
+					, success:function(data){
+						if(data.result == "success"){
+							location.href = "/post/timeline/view";
+						}else{
+							alert("아이디/비밀번호를 확인해주세요");
+						}
+					}
+					, error:function(){
+						alert("로그인 에러");
+					}
+				});
+				
+				return false;
+			});
 		});
 	
 	</script>
