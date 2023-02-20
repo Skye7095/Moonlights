@@ -52,4 +52,19 @@
 			`loginId` = #{loginId}
 			AND `password` = #{password}
 	</select>
+	
+	<select id="selectUserById" parameterType="int"
+	resultType="com.moonlight.moonlights.user.model.User">
+		SELECT 
+			`id`
+			, `loginId`
+			, `password`
+			, `name`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		FROM 
+			`user`
+	</select>
+	
 </mapper>

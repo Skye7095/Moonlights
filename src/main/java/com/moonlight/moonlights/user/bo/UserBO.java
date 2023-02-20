@@ -1,5 +1,7 @@
 package com.moonlight.moonlights.user.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,4 +45,9 @@ public class UserBO {
 		
 		return userDAO.selectUserByIdPassword(loginId, encryptPassword);
 	}
+	
+	public User getUserById(int id) {
+		return userDAO.selectUserById(id);
+	}
+	
 }
