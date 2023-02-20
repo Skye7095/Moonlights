@@ -18,4 +18,7 @@ public interface PostDAO {
 	
 	public List<Post> selectPostList();
 	
+	public int insertLike(
+			@Param("userId") int userId
+			, @Param("postId") int postId);
 }

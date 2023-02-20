@@ -48,7 +48,7 @@
 									<img width="300" src="${postDetail.imagePath }" >
 								</div>
 								<div class="likes ml-2">
-									<i class="bi bi-heart"></i>좋아요 33개
+									<i class="bi bi-heart heart-btn" data-postdetail-id="${postDetail.id }"></i>좋아요 3개
 								</div>
 								<div class="postContent d-flex my-2 mx-3">
 									<b class="col-2">${postDetail.userName }</b> ${postDetail.content }
@@ -58,8 +58,8 @@
 							<!-- 댓글 -->
 							<div class="comment-box">
 								<div class="commentInput-box d-flex mx-1">
-									<input type="text" class="form-control mr-2" placeholder="댓글을 입력하세요">
-									<button type="button" class="btn btn-primary">확인</button>
+									<input type="text" class="form-control mr-2" placeholder="댓글을 입력하세요" id="commentInput">
+									<button type="button" class="btn btn-primary commentBtn" data-postdetail-id="${postDetail.id }">확인</button>
 								</div>
 								<div class="commentView-box d-flex justify-content-between border-top border-bottom mt-2">
 									<h5 class="font-weight-bold pl-2">comments</h5>
@@ -84,6 +84,58 @@
 	
 	<script>
 		$(document).ready(function(){
+			
+			$(".commentBtn").on("click", function(){
+				let postId = $(this).data("postdetail-id");
+				
+				let content = $("#commentInput").val();
+				
+				if(content == ""){
+					alert("댓글을 입력하세요");
+					return;
+				}
+				
+				console.log(postId);
+				console.log(content);
+				
+				$.ajax({
+					type:"post"
+					, url:"/post/comment/create"
+					, data:{"postId":postId, "content":content}
+					, success:function(data){
+						if(data.result == "success"){
+							location.reload();
+						}else{
+							alert("댓글 실패");
+						}
+					}
+					, error:function(){
+						alert("댓글 에러");
+					}
+				});
+			});
+			
+			$(".heart-btn").on("click", function(){
+				
+				// 해당하는 버튼에 대응되는 post id를 얻어와야한다.
+				let postId = $(this).data("postdetail-id");
+				
+				$.ajax({
+					type:"get"
+					, url:"/post/like"
+					, data:{"postId":postId}
+					, success:function(data){
+						if(data.result == "success"){
+							location.reload();
+						}else{
+							alert("좋아요 실패");
+						}
+					}
+					, error:function(){
+						alert("좋아요 에러");
+					}
+				});
+			});
 			
 			$("#imageUploadBtn").on("click", function(){
 				// 파일 input을 클릭한 효과

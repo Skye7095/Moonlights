@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.moonlight.moonlights.common.FileManagerService;
+import com.moonlight.moonlights.post.comment.bo.CommentBO;
 import com.moonlight.moonlights.post.dao.PostDAO;
 import com.moonlight.moonlights.post.model.Post;
 import com.moonlight.moonlights.post.model.PostDetail;
@@ -54,5 +55,9 @@ public class PostBO {
 		
 		return postDetailList;
 	}
+	
+	public int addLike(int userId, int postId) {
+		return postDAO.insertLike(userId, postId);
+	};
 	
 }
