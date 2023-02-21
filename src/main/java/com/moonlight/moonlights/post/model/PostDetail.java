@@ -7,8 +7,29 @@ public class PostDetail {
 	private String userName;
 	private String content;
 	private String imagePath;
+	private int likeNumber;
+	private String commentUserName;
+	private String commentContent;
 	
 	
+	public String getCommentUserName() {
+		return commentUserName;
+	}
+	public void setCommentUserName(String commentUserName) {
+		this.commentUserName = commentUserName;
+	}
+	public String getCommentContent() {
+		return commentContent;
+	}
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
+	}
+	public int getLikeNumber() {
+		return likeNumber;
+	}
+	public void setLikeNumber(int likeNumber) {
+		this.likeNumber = likeNumber;
+	}
 	public int getId() {
 		return id;
 	}

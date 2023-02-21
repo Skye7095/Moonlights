@@ -48,7 +48,7 @@
 									<img width="300" src="${postDetail.imagePath }" >
 								</div>
 								<div class="likes ml-2">
-									<i class="bi bi-heart heart-btn" data-postdetail-id="${postDetail.id }"></i>좋아요 3개
+									<i class="bi bi-heart heart-btn" data-postdetail-id="${postDetail.id }"></i>좋아요 ${postDetail.likeNumber }개
 								</div>
 								<div class="postContent d-flex my-2 mx-3">
 									<b class="col-2">${postDetail.userName }</b> ${postDetail.content }
@@ -66,7 +66,7 @@
 									<i class="bi bi-three-dots-vertical pr-2"></i>
 								</div>
 								<div class="commentContent-box mx-3 my-2">
-									<b>alex</b>ai가 개임??
+									<b>${postDetail.commentUserName }</b>${postDetail.commentContent }
 									<br>
 									<b>billie</b>나!!! 어디로 가면 되?
 								</div>
@@ -88,15 +88,20 @@
 			$(".commentBtn").on("click", function(){
 				let postId = $(this).data("postdetail-id");
 				
-				let content = $("#commentInput").val();
+				// 형제태그 값을 얻어오기
+				// $(this).siblings()[0];
+				
+				// 형제태그 값을 얻어오기2 > 버튼 바로 이전에 태그의 값을 불러오기. 그럼 postId 필요없음
+				// let comment = $(this).prev().val();
+				
+				// id 셀랙터를 문자열 연산으로 완성
+				let content = $("#commentInput" + postId).val();
 				
 				if(content == ""){
 					alert("댓글을 입력하세요");
 					return;
 				}
 				
-				console.log(postId);
-				console.log(content);
 				
 				$.ajax({
 					type:"post"

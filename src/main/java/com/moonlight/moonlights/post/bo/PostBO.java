@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.moonlight.moonlights.common.FileManagerService;
-import com.moonlight.moonlights.post.comment.bo.CommentBO;
+import com.moonlight.moonlights.post.comment.dao.CommentDAO;
+import com.moonlight.moonlights.post.comment.model.Comment;
 import com.moonlight.moonlights.post.dao.PostDAO;
+import com.moonlight.moonlights.post.like.bo.LikeBO;
 import com.moonlight.moonlights.post.model.Post;
 import com.moonlight.moonlights.post.model.PostDetail;
 import com.moonlight.moonlights.user.bo.UserBO;
@@ -23,6 +25,12 @@ public class PostBO {
 	
 	@Autowired
 	private UserBO userBO;
+	
+	@Autowired
+	private LikeBO likeBO;
+	
+	@Autowired
+	private CommentDAO commentDAO;
 	
 	public int addPost(int userId, String content, MultipartFile file) {
 		
@@ -41,7 +49,9 @@ public class PostBO {
 		for(Post post:postList) {
 			// postDetail 객체를 생성하고, post 객체의 정보를 저장한다.
 			PostDetail postDetail = new PostDetail();
-			postDetail.setId(post.getId());
+			
+			int postId = post.getId();
+			postDetail.setId(postId);
 			postDetail.setUserId(post.getUserId());
 			postDetail.setContent(post.getContent());
 			postDetail.setImagePath(post.getImagePath());
@@ -50,14 +60,17 @@ public class PostBO {
 			User user = userBO.getUserById(post.getUserId());
 			postDetail.setUserName(user.getName());			
 			
+			// like의 갯수를 저장한다.
+			int likeNumber = likeBO.selectLikeNumber(postId);
+			postDetail.setLikeNumber(likeNumber);
+			
+			// comment중 userName/content 저장한다.	
+			
+				
 			postDetailList.add(postDetail);
 		}
 		
 		return postDetailList;
 	}
-	
-	public int addLike(int userId, int postId) {
-		return postDAO.insertLike(userId, postId);
-	};
 	
 }
