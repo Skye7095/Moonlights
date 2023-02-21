@@ -15,8 +15,17 @@ public class LikeBO {
 		return likeDAO.insertLike(userId, postId);
 	};
 	
-	
+	// postId를 전달 받고, 좋아용 갯수를 리턴하는 메소드
 	public int selectLikeNumber(int postId) {
 		return likeDAO.selectLikeNumber(postId);
+	}
+	
+	// postId와 userId를 전달 받고 좋아용 여부 리턴하는 메소드
+	public boolean isLike(int userId, int postId) {
+		if(likeDAO.selectLikeCountByUserId(userId, postId) == 0) {
+			return false;
+		}else {
+			return true;
+		}
 	}
 }

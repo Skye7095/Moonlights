@@ -48,6 +48,7 @@
 									<img width="300" src="${postDetail.imagePath }" >
 								</div>
 								<div class="likes ml-2">
+									${postDetail.like }
 									<i class="bi bi-heart heart-btn" data-postdetail-id="${postDetail.id }"></i>좋아요 ${postDetail.likeNumber }개
 								</div>
 								<div class="postContent d-flex my-2 mx-3">

@@ -1,6 +1,5 @@
 package com.moonlight.moonlights.post;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.moonlight.moonlights.post.bo.PostBO;
-import com.moonlight.moonlights.post.model.Post;
 import com.moonlight.moonlights.post.model.PostDetail;
-import com.moonlight.moonlights.user.model.User;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/post")
@@ -22,9 +21,12 @@ public class PostController {
 	private PostBO postBO;
 	
 	@GetMapping("/timeline/view")
-	public String timeline(Model model) {
+	public String timeline(Model model
+			, HttpSession session) {
 		
-		List<PostDetail> postDetailList = postBO.getPostDetailList();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		List<PostDetail> postDetailList = postBO.getPostDetailList(userId);
 		model.addAttribute("postDetailList", postDetailList);
 		
 		return "post/timeline";

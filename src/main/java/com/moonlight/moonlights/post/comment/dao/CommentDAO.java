@@ -16,5 +16,4 @@ public interface CommentDAO {
 			, @Param("content") String content);
 	
 	public List<Comment> selectCommentList();
-	
 }

@@ -75,12 +75,12 @@ public class UserRestController {
 		Map<String, String> result = new HashMap<>();
 		
 		if(user != null) {
-			result.put("result", "success");
 			
 			HttpSession session = request.getSession();
-			
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("userName", user.getName());
+			
+			result.put("result", "success");
 		}else {
 			result.put("result", "fail");
 		}

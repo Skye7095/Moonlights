@@ -8,10 +8,19 @@ public class PostDetail {
 	private String content;
 	private String imagePath;
 	private int likeNumber;
+	private boolean isLike;
 	private String commentUserName;
 	private String commentContent;
 	
 	
+	
+	
+	public boolean isLike() {
+		return isLike;
+	}
+	public void setLike(boolean isLike) {
+		this.isLike = isLike;
+	}
 	public String getCommentUserName() {
 		return commentUserName;
 	}
