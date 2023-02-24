@@ -25,7 +25,8 @@
 		)
 	</insert>
 	
-	<select id="selectCommentList" parameterType="int" resultType="com.moonlight.moonlights.post.comment.dao.CommentDAO">
+	<select id="selectCommentList" parameterType="int"
+	resultType="com.moonlight.moonlights.post.comment.model.Comment">
 		SELECT
 			`id`
 			, `userId`
@@ -35,7 +36,16 @@
 			, `updatedAt`
 		FROM
 			`comment`
+		WHERE
+			`postId` = #{postId}
 		ORDER BY
 			`id` DESC;
 	</select>
+	
+	<delete id="deleteCommentByPostId" parameterType="int">
+		DELETE FROM
+			`comment`
+		WHERE
+			`postId` = #{postId}
+	</delete>
 </mapper>

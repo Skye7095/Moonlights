@@ -48,4 +48,41 @@ public class FileManagerService {
 		return "/moonlights" + directoryName + file.getOriginalFilename();
 		
 	}
+	
+	// 파일 삭제 메소드
+		public static boolean removeFile(String filePath) {
+			// 삭제 경로 /memo를 제거하고
+			// 실제 파일 저장 경로에 이어 붙여 준다.
+			String realFilePath = FILE_UPLOAD_PATH + filePath.replace("/moonlights", "");
+			Path path = Paths.get(realFilePath);
+			
+			// 파일이 존재하는지 먼저 확인하고 삭제해야함
+			if(Files.exists(path)) {
+				try {
+					Files.delete(path);
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+					
+					return false;
+				}
+			}
+			
+			// 파일을 저장하는 폴더도 같이 삭제해야함
+			// 디렉토리 경로
+			Path dirPath = path.getParent();
+			// 디렉토리 존재여부
+			if(Files.exists(dirPath)) {
+				try {
+					Files.delete(path);
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+					
+					return false;
+				}
+			}
+			
+			return true;
+		}
 }

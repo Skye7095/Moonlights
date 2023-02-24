@@ -1,5 +1,9 @@
 package com.moonlight.moonlights.post.model;
 
+import java.util.List;
+
+import com.moonlight.moonlights.post.comment.model.CommentDetail;
+
 public class PostDetail {
 	
 	private int id;
@@ -9,29 +13,22 @@ public class PostDetail {
 	private String imagePath;
 	private int likeNumber;
 	private boolean isLike;
-	private String commentUserName;
-	private String commentContent;
+	private List<CommentDetail> commentList;
 	
 	
 	
 	
+	public List<CommentDetail> getCommentList() {
+		return commentList;
+	}
+	public void setCommentList(List<CommentDetail> commentList) {
+		this.commentList = commentList;
+	}
 	public boolean isLike() {
 		return isLike;
 	}
 	public void setLike(boolean isLike) {
 		this.isLike = isLike;
-	}
-	public String getCommentUserName() {
-		return commentUserName;
-	}
-	public void setCommentUserName(String commentUserName) {
-		this.commentUserName = commentUserName;
-	}
-	public String getCommentContent() {
-		return commentContent;
-	}
-	public void setCommentContent(String commentContent) {
-		this.commentContent = commentContent;
 	}
 	public int getLikeNumber() {
 		return likeNumber;
